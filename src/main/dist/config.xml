@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<setting>
+  <corpora dppath="Corpora/aozora_sample" name="『青空文庫』サンプル(= config_aozora_sample.xml)">
+<li name="aozora_sample" path="Corpora/aozora_sample/corpus"/>
+</corpora>
+
+  <!-- 索引関連 -->
+  <!-- 要素内容への索引 -->
+  <index_cix>
+    <li field_name="キー" label="本文" middle_name="article" name="テキスト" type="normal"/>
+    <li field_name="キー" label="本文(正規表現)" middle_name="article" name="テキスト" type="null"/>
+  </index_cix>
+
+  <!-- 要素への索引 -->
+  <index_eix>
+    <li is_empty="false" middle_name="corpus" name="コーパス" top="true"/>
+    <li isBrowsed="true" is_empty="false" middle_name="article" name="記事"/>
+    <li is_empty="false" middle_name="r" name="r"/>
+  </index_eix>
+
+  <!-- 要素属性への索引 -->
+  <index_aix>
+    <li argument="rt" field_name="キー" isCompleteMatch="true" label="ルビ(rt)完全一致" middle_name="r" name="r"/>
+    <li argument="rt" field_name="キー" isCompleteMatch="false" label="ルビ(rt)部分一致" middle_name="r2" name="r"/>
+  </index_aix>
+
+<!-- 検索関連オプション -->
+  <!-- KWIC の文脈長 -->
+  <length_context_kwic value="10"/>
+  <!-- 検索時の文脈マッチング範囲 -->
+  <length_context_search value="10"/>
+
+  <!-- 結果レコードのフィールド定義 -->
+  <field_setting>
+    <li align="RIGHT" name="no" type="index" width="30"/>
+    <li align="RIGHT" attribute="_preceding_context" element="_sys" name="前文脈" sort_direction="R" type="preceding_context" width="180"/>
+    <li attribute="_key" element="_sys" name="キー" sort_order="1" type="key" width="80"/>
+    <li attribute="_following_context" element="_sys" name="後文脈" sort_order="2" type="following_context" width="160"/>
+    <li attribute="path" element="記事" name="Path" type="argument" width="80"/>
+    <li attribute="タイトル" element="記事" name="タイトル" type="argument" width="80"/>
+    <li attribute="著者" element="記事" name="著者" type="argument" width="80"/>
+  </field_setting>
+
+<!--     コーパスフィールド -->
+  <corpus_fields name="コーパス">
+    <li attribute="名前" element="コーパス" name="コーパス名" width="120"/>
+  </corpus_fields>
+
+<!-- 閲覧要素一覧用フィールド -->
+<unit_fields name="タイトル，著者">
+ <li attribute="タイトル" element="記事" name="タイトル" width="120"/>
+ <li attribute="サブタイトル" element="記事" name="サブタイトル" width="120"/>
+ <li attribute="著者" element="記事" name="著者" width="120"/>
+ <li attribute="path" element="記事" name="Path" width="120"/>
+</unit_fields>
+
+<!-- 統計表用フィールド -->
+  <stat_fields_1 label="キー，タイトル，著者">
+    <li name="キー" width="100"/>
+    <li align="LEFT" name="タイトル" width="150"/>
+    <li align="LEFT" name="著者" width="150"/>
+    <li align="RIGHT" name="頻度" sort_type="numeric" width="80"/>
+  </stat_fields_1>
+
+  <stat_fields_2 label="基本形，タイトル，著者">
+    <li align="RIGHT" name="基本形" width="100"/>
+    <li align="LEFT" name="タイトル" width="150"/>
+    <li align="LEFT" name="著者" width="150"/>
+    <li align="RIGHT" name="頻度" sort_type="numeric" width="80"/>
+  </stat_fields_2>
+
+  <stat_fields_3 label="キー">
+    <li name="キー" width="100"/>
+    <li align="RIGHT" name="頻度" sort_type="numeric" width="80"/>
+  </stat_fields_3>
+
+
+<!-- 閲覧表示関連オプション -->
+  <!-- 表示用 XSL -->
+  <xsl_files root_path="Corpora/aozora_sample/xslt">
+    <li label="default" name="kotobun_written.xsl"/>
+  </xsl_files>
+
+<!-- 字体辞書の URL -->
+<jitaidic url="Corpora/jitaidic.xml"/>
+
+<!-- パッケージホームページ URL -->
+  <package_hp url="https://csd.ninjal.ac.jp/lrc/index.php?%C1%B4%CA%B8%B8%A1%BA%F7%A5%B7%A5%B9%A5%C6%A5%E0%A1%D8%A4%D2%A4%DE%A4%EF%A4%EA%A1%D9/%A1%D8%C0%C4%B6%F5%CA%B8%B8%CB%A1%D9%A5%B5%A5%F3%A5%D7%A5%EB"/>
+
+  <!-- フォントサイズ -->
+  <fontsize value="14"/>
+
+
+  <!-- indexing 用のメニュー項目を表示するか否か -->
+  <isIndexingEnable value="true"/>
+
+  <!-- 外部アノテータの設定 ver.1.6から .himawari_annotator_config.xml に移行 -->
+  <!-- インポート時の設定 ver.1.6から .himawari_import_config.xml に移行 -->
+</setting>

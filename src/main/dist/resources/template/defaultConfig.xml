@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setting>
+  <corpora />
+
+  <!-- 索引関連 -->
+  <!-- 要素内容への索引 -->
+  <index_cix>
+    <li name="テキスト" label="本文" middle_name="article" type="normal" field_name="キー" />
+    <li name="テキスト" label="本文(正規表現)" middle_name="article" type="null" field_name="キー" />
+  </index_cix>
+
+  <!-- 要素への索引 -->
+  <index_eix>
+    <li name="コーパス" middle_name="corpus" is_empty="false" top="true" />
+    <li name="記事" middle_name="article" is_empty="false" isBrowsed="true" />
+    <li name="r" middle_name="r" is_empty="false" />
+  </index_eix>
+
+  <!-- 要素属性への索引 -->
+  <index_aix>
+    <li label="ルビ(rt)完全一致" name="r" middle_name="r" argument="rt" isCompleteMatch="true" field_name="キー" />
+    <li label="ルビ(rt)部分一致" name="r" middle_name="r2" argument="rt" isCompleteMatch="false" field_name="キー" />
+  </index_aix>
+
+<!-- 検索関連オプション -->
+  <!-- KWIC の文脈長 -->
+  <length_context_kwic value="10" />
+  <!-- 検索時の文脈マッチング範囲 -->
+  <length_context_search value="10" />
+
+  <!-- 結果レコードのフィールド定義 -->
+  <field_setting>
+    <li name="no" type="index" width="30" align="RIGHT" />
+    <li name="前文脈" type="preceding_context" element="_sys" attribute="_preceding_context" width="180" align="RIGHT" sort_direction="R" />
+    <li name="キー" type="key" element="_sys" attribute="_key" width="80" sort_order="1" />
+    <li name="後文脈" type="following_context" element="_sys" attribute="_following_context" width="160" sort_order="2" />
+    <li name="Path" type="argument" element="記事" attribute="path" width="80" />
+    <li name="タイトル" type="argument" element="記事" attribute="タイトル" width="80" />
+    <li name="著者" type="argument" element="記事" attribute="著者" width="80" />
+  </field_setting>
+
+<!--     コーパスフィールド -->
+  <corpus_fields name="コーパス">
+    <li element="コーパス" attribute="名前" width="120" name="コーパス名" />
+  </corpus_fields>
+
+<!-- 閲覧要素一覧用フィールド -->
+<unit_fields name="タイトル，著者">
+ <li element="記事" attribute="タイトル" width="120" name="タイトル" />
+ <li element="記事" attribute="サブタイトル" width="120" name="サブタイトル" />
+ <li element="記事" attribute="著者" width="120" name="著者" />
+ <li element="記事" attribute="path" width="120" name="Path" />
+</unit_fields>
+
+<!-- 統計表用フィールド -->
+  <stat_fields_1 label="キー，タイトル，著者">
+    <li name="キー"  width="100" />
+    <li name="タイトル"  width="150" align="LEFT" />
+    <li name="著者"  width="150" align="LEFT" />
+    <li name="頻度"  width="80" align="RIGHT" sort_type="numeric" />
+  </stat_fields_1>
+
+  <stat_fields_2 label="基本形，タイトル，著者">
+    <li name="基本形"  width="100" align="RIGHT" />
+    <li name="タイトル"  width="150" align="LEFT" />
+    <li name="著者"  width="150" align="LEFT" />
+    <li name="頻度"  width="80" align="RIGHT" sort_type="numeric"/>
+  </stat_fields_2>
+
+  <stat_fields_3 label="キー">
+    <li name="キー"  width="100" />
+    <li name="頻度"  width="80" align="RIGHT" sort_type="numeric"/>
+  </stat_fields_3>
+
+
+<!-- 閲覧表示関連オプション -->
+  <!-- 表示用 XSL -->
+  <xsl_files root_path="%will_be_replaced%">
+    <li label="default" name="kotobun_written.xsl" />
+  </xsl_files>
+
+<!-- 字体辞書の URL -->
+<jitaidic url="Corpora/jitaidic.xml" />
+
+  <!-- フォントサイズ -->
+  <fontsize value="14" />
+
+
+  <!-- indexing 用のメニュー項目を表示するか否か -->
+  <isIndexingEnable value="true" />
+
+  <!-- 外部アノテータの設定 ver.1.6から .himawari_annotator_config.xml に移行 -->
+  <!-- インポート時の設定 ver.1.6から .himawari_import_config.xml に移行 -->
+</setting>

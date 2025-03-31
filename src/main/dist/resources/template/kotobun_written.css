@@ -1,0 +1,10 @@
+body {
+background-color: beige;
+margin: 5% 10%;
+line-height:150%;
+}
+
+span.target_char {
+	font-weight: bold;
+	color: red;
+}	
