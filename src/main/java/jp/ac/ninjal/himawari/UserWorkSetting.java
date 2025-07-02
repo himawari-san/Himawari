@@ -100,6 +100,8 @@ public class UserWorkSetting {
 	private static final String FILTER_MIDDLE = "filter_middle"; //$NON-NLS-1$
 	// フィルタ下段履歴
 	private static final String FILTER_BOTTOM = "filter_bottom"; //$NON-NLS-1$
+	// 言語
+	private static final String LANGUAGE = "lang";
 
 
 	/*--------------
@@ -117,6 +119,8 @@ public class UserWorkSetting {
 	//配列型プロパティーのエラー値
 	public static final String[] ARRAY_ERROR = null;
 
+	// user setting file name (default)
+	public final static String USER_WORK_SETTING_FILENAME = "user_setting.xml"; //$NON-NLS-1$
 
 
 	/***************
@@ -168,37 +172,38 @@ public class UserWorkSetting {
 	// configファイルパス
 	private String file_path;
 
+	// language in Locale 
+	private String language;
 
 	/*****************
 	 * public methods
+	 * @throws Exception 
 	 ******************/
+
+	public UserWorkSetting() throws Exception {
+		this(USER_WORK_SETTING_FILENAME);
+	}
 
 	/**
 	 * コンストラクタ
 	 * @param filepath ユーザ設定ファイルパス
+	 * @throws Exception 
 	 */
-	public UserWorkSetting(String filepath) {
+	public UserWorkSetting(String filepath) throws Exception {
 
-		try{
-			// DOMオブジェクトの作成
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
+		// DOMオブジェクトの作成
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
 
-			//ファイルの作成
-			file = new File(filepath);
-			if (file.exists()){
-				//パース
-				doc = db.parse(file);
-				//値のセット
-				setProperty();
-				existSettingFile = true;
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-			//エラー時は警告ダイアログを表示する
-			JOptionPane.showMessageDialog(null, Messages.getString("Frame1.514")); //$NON-NLS-1$
+		//ファイルの作成
+		file = new File(filepath);
+		if (file.exists()){
+			//パース
+			doc = db.parse(file);
+			//値のセット
+			setProperty();
+			existSettingFile = true;
 		}
-
 	}
 
 	/**
@@ -257,6 +262,7 @@ public class UserWorkSetting {
 		setValueDom(BROWSER,TOOL, browser);
 		setValueDom(XSL, TOOL, xsl);
 		setValueDom(SAVE_SETTING, TOOL, save_setting);
+		setValueDom(LANGUAGE, TOOL, language == null ? LocaleUtil.getLanguage() : language);
 		setValueDom(LENGTH_OF_CONTEXT, SEARCH, length_of_context);
 		setValueDom(KEY_STRING, KEY, key_string);
 		setValueDom(KEY_PREV, KEY, key_prev);
@@ -367,29 +373,25 @@ public class UserWorkSetting {
 	 * Documentから値を取得し、プロパティーにセットする
 	 * @throws Exception
 	 */
-	private void setProperty() throws Exception {
+	public void setProperty() throws Exception {
 
 		/**
 		 * 値を自分にセットする（取得できない場合はエラー値）
 		 */
 
-		try{
-			font_size = getInt(FONT_SIZE) != 0 ? getInt(FONT_SIZE): INT_ERROR ;
-			browser = getString(BROWSER) != null ? getString(BROWSER): STR_ERROR;
-			xsl = getString(XSL) != null ? getString(XSL): STR_ERROR;
-			save_setting = getInt(SAVE_SETTING) != 0 ? getInt(SAVE_SETTING):INT_ERROR ;
-			length_of_context = getString(LENGTH_OF_CONTEXT) != null ? getString(LENGTH_OF_CONTEXT): STR_ERROR;
-			key_string = getStringArray(KEY_STRING) != null ? getStringArray(KEY_STRING):ARRAY_ERROR ;
-			key_prev = getStringArray(KEY_PREV) != null ? getStringArray(KEY_PREV):ARRAY_ERROR;
-			key_fol = getStringArray(KEY_FOL) != null ? getStringArray(KEY_FOL) :ARRAY_ERROR ;
-			filter_top = getStringArray(FILTER_TOP) != null ? getStringArray(FILTER_TOP): ARRAY_ERROR;
-			filter_middle = getStringArray(FILTER_MIDDLE) != null ? getStringArray(FILTER_MIDDLE): ARRAY_ERROR;
-			filter_bottom = getStringArray(FILTER_BOTTOM) != null ? getStringArray(FILTER_BOTTOM): ARRAY_ERROR;
-			file_path = getString(FILE_PATH) != null ? getString(FILE_PATH): STR_ERROR;
-		}catch(Exception e){
-			throw e;
-		}
-
+		font_size = getInt(FONT_SIZE) != 0 ? getInt(FONT_SIZE): INT_ERROR ;
+		browser = getString(BROWSER) != null ? getString(BROWSER): STR_ERROR;
+		xsl = getString(XSL) != null ? getString(XSL): STR_ERROR;
+		save_setting = getInt(SAVE_SETTING) != 0 ? getInt(SAVE_SETTING):INT_ERROR ;
+		language = getString(LANGUAGE) != null ? getString(LANGUAGE): STR_ERROR;
+		length_of_context = getString(LENGTH_OF_CONTEXT) != null ? getString(LENGTH_OF_CONTEXT): STR_ERROR;
+		key_string = getStringArray(KEY_STRING) != null ? getStringArray(KEY_STRING):ARRAY_ERROR ;
+		key_prev = getStringArray(KEY_PREV) != null ? getStringArray(KEY_PREV):ARRAY_ERROR;
+		key_fol = getStringArray(KEY_FOL) != null ? getStringArray(KEY_FOL) :ARRAY_ERROR ;
+		filter_top = getStringArray(FILTER_TOP) != null ? getStringArray(FILTER_TOP): ARRAY_ERROR;
+		filter_middle = getStringArray(FILTER_MIDDLE) != null ? getStringArray(FILTER_MIDDLE): ARRAY_ERROR;
+		filter_bottom = getStringArray(FILTER_BOTTOM) != null ? getStringArray(FILTER_BOTTOM): ARRAY_ERROR;
+		file_path = getString(FILE_PATH) != null ? getString(FILE_PATH): STR_ERROR;
 
 	}
 
@@ -502,6 +504,20 @@ public class UserWorkSetting {
 	}
 
 
+	/**
+	 * @return language
+	 */
+	public String getLanguage() {
+		return language;
+	}
+
+	
+	/**
+	 * @param language セットする language
+	 */
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
 
 	/**

@@ -135,13 +135,11 @@ public class Frame1 extends JFrame {
 	// 無効フラグ
 	private final static int INVALID_FLAG = 1;
 
-	// user setting file name (default)
-	private final static String USER_WORK_SETTING_FILENAME = "user_setting.xml"; //$NON-NLS-1$
-
-	
 	private final static int DEFAULT_KWIC_CONTEXT_LENGTH = 10;
 
 	private UserSettings userSetting = new UserSettings(); // @jve:decl-index=0:
+	
+	private LocaleUtil localeUtil = new LocaleUtil();
 
 	// configuration file name (default)
 	private String configFileName = UserSettings.DEFAULT_CONFIG_FILE;
@@ -304,6 +302,7 @@ public class Frame1 extends JFrame {
 	private JMenuItem jMenuItem_browser = null;
 	private JMenuItem jMenuItem_xsl = null;
 	private JMenuItem jMenuItem_saveSetting = null;
+	private JMenuItem jMenuItem_language = null;
 	private JMenuItem jMenuItemOptionAnnotation = null;
 	private JMenuItem jMenuItemOptionAnalyze = null;
 	private JMenuItem jMenuGenarateIndex = null;
@@ -485,7 +484,13 @@ public class Frame1 extends JFrame {
 	 * ユーザ設定ファイルの読み込み1 (保存の有効・無効, configファイルのみ読み込む)
 	 */
 	private void readUserSetting1() {
-		userWorkSetting = new UserWorkSetting(USER_WORK_SETTING_FILENAME);
+		try {
+			userWorkSetting = new UserWorkSetting();
+		} catch (Exception e) {
+			e.printStackTrace();
+			//エラー時は警告ダイアログを表示する
+			JOptionPane.showMessageDialog(null, Messages.getString("Frame1.514")); //$NON-NLS-1$
+		}
 
 		// ユーザ設定保存
 		int tempSaveSetting = userWorkSetting.getSave_setting();
@@ -545,7 +550,7 @@ public class Frame1 extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * アプリケーションを終了する
 	 */
@@ -1701,6 +1706,9 @@ public class Frame1 extends JFrame {
 			userWorkSetting.setXsl(""); //$NON-NLS-1$
 		}
 		userWorkSetting.setSave_setting(saveSetting);
+		if(!localeUtil.getNextStartupLanguage().equals("")) { //$NON-NLS-1$
+			userWorkSetting.setLanguage(localeUtil.getNextStartupLanguage());
+		}
 		userWorkSetting.setLength_of_context(jTextField_Length_of_Context
 				.getText());
 		userWorkSetting.setKey_string(jTextField_Key.getHistory().toArray(new String[0]));
@@ -2760,6 +2768,7 @@ public class Frame1 extends JFrame {
 			jMenu_Option.add(getJMenuItem_xsl());
 			jMenu_Option.add(getJMenuItem_saveSetting());
 			jMenu_Option.add(getJMenuItemOptionAnnotation());
+			jMenu_Option.add(getJMenuItem_language());
 		}
 		return jMenu_Option;
 	}
@@ -5907,6 +5916,36 @@ public class Frame1 extends JFrame {
 			}
 		}
 	}
+	
+	
+	private JMenuItem getJMenuItem_language() {
+		if (jMenuItem_language == null) {
+			jMenuItem_language = new JMenuItem();
+			jMenuItem_language.setText(Messages.getString("Frame1.115")); //$NON-NLS-1$
+
+			jMenuItem_language
+					.addActionListener(new java.awt.event.ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							String beforeDisplayLanguage = LocaleUtil.getLocale().getDisplayLanguage();
+							String selectedDisplayLanguage = (String) JOptionPane.showInputDialog(
+									Frame1.this,
+									Messages.getString("Frame1.125"), //$NON-NLS-1$
+									Messages.getString("Frame1.131"), //$NON-NLS-1$
+									JOptionPane.INFORMATION_MESSAGE,
+									null,
+									LocaleUtil.getDisplayLanguages(),
+									LocaleUtil.getLocale().getDisplayLanguage());
+							
+							if (selectedDisplayLanguage != null && !beforeDisplayLanguage.equals(selectedDisplayLanguage)) {
+								localeUtil.setNextStartupLanguage(LocaleUtil.getLanguage(selectedDisplayLanguage));
+								JOptionPane.showMessageDialog(Frame1.this, Messages.getString("Frame1.132")); //$NON-NLS-1$
+							}
+						}
+					});
+		}
+		return jMenuItem_language;
+	}
+
 
 	
 	private JMenuItem getJMenuItemConstructAnalyzeCorpus() {

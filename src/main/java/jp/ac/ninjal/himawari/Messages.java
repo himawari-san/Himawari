@@ -17,21 +17,20 @@
 
 package jp.ac.ninjal.himawari;
 
+import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 public class Messages {
 	private static final String BUNDLE_NAME = "jp.ac.ninjal.himawari.messages"; //$NON-NLS-1$
-
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME);
 
 	private Messages() {
 	}
 
 	public static String getString(String key) {
 		try {
-			return RESOURCE_BUNDLE.getString(key);
+			return resourceBundle.getString(key);
 		} catch (MissingResourceException e) {
 			return '!' + key + '!';
 		}
@@ -39,5 +38,9 @@ public class Messages {
 
 	public static String format(String key, Object... values ){
 		return String.format(getString(key), values);
+	}
+	
+	public static void setLocale(Locale locale) {
+		resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
 	}
 }

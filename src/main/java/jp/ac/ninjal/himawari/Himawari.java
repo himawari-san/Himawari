@@ -24,11 +24,13 @@ JTable * @(#)Application1.java	0.9.4 2003-10-20
  */
 package jp.ac.ninjal.himawari;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import java.awt.*;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.util.Locale;
 
 /**
  * 全文検索システム「ひまわり」
@@ -46,6 +48,19 @@ public class Himawari {
 
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				UserWorkSetting userWorkSetting;
+				try {
+					userWorkSetting = new UserWorkSetting();
+					String savedLanguage = userWorkSetting.getLanguage();
+					if(savedLanguage == null) {
+						LocaleUtil.confirmLanguage(null);
+					} else {
+						LocaleUtil.setLocale(new Locale(savedLanguage));
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, Messages.getString("Himawari.0")); //$NON-NLS-1$
+				}
 
 
                 // EDTに例外ハンドラーを設定し、ErrorとRuntimeException を受け取る
