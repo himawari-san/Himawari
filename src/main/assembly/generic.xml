@@ -35,6 +35,9 @@
 			</excludes>
 			<fileMode>0644</fileMode>
 		</fileSet>
-
+		<fileSet>
+			<directory>${project.build.directory}/jre/64</directory>
+			<outputDirectory>jre/64</outputDirectory>
+		</fileSet>
 	</fileSets>
 </assembly>
