@@ -1,4 +1,4 @@
-全文検索システム『ひまわり』 ver.1.8a20250331 (2025-03-31)
+全文検索システム『ひまわり』 ver.1.8a20250703 (2025-07-31)
 Copyright 2004-2025 山口昌也
 (大学共同利用機関法人 人間文化研究機構 国立国語研究所)
 
@@ -7,6 +7,7 @@ Copyright 2004-2025 山口昌也
                  ... jitaidic.xml (字体辞書)
 　- resources/   ... テキストインポート機能用ファイル
 
+  - COPYING.txt  ... ライセンス（GPLv3）
   - README.txt   ... このファイル
 
   - config.xml   ... 『ひまわり』設定ファイル(config_aozora_sample.xmlと同一)
@@ -14,9 +15,8 @@ Copyright 2004-2025 山口昌也
     config_aozora_sample.sd.xml (形態素解析結果付き)
                  ... 『ひまわり』設定ファイル(『青空文庫』サンプル用)
 
-  - himawari.bat ... 『ひまわり』実行用batファイル
-  - himawari_ja.bat ... 『ひまわり』実行用batファイル（日本語UI）
-  - himawari_en.bat ... 『ひまわり』実行用batファイル（英語UI）
+  - himawari.exe ... 『ひまわり』実行用batファイル (Windows)
+  - himawari.bat ... 『ひまわり』実行用batファイル (Windows)
   - himawari.sh  ... 『ひまわり』実行用shell script
   - himawari.jar ... 『ひまわり』本体 (Mac, Linux, Windows 共用)
 
@@ -27,8 +27,7 @@ Copyright 2004-2025 山口昌也
   - 利用方法は，『ひまわり』のホームページをご覧ください。
     (https://csd.ninjal.ac.jp/lrc/index.php?himawari)
 
-  - ご使用にあたっては，著作権および使用条件に関する文書
-    (copyright.txt)をお読みください。
+  - ライセンスはGPLv3です。詳細は，COPYING.txtをお読みください。
 
 
 ３．変更履歴

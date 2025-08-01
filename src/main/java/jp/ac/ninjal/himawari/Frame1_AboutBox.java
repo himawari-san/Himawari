@@ -68,9 +68,9 @@ public class Frame1_AboutBox extends JDialog implements ActionListener {
 
 	String product = Messages.getString("Frame1_AboutBox.0"); //$NON-NLS-1$
 
-	String version = "Ver. 1.7.4 [released 20231025]"; //$NON-NLS-1$
+	String version = "Ver. 1.8a20250703 [released 20250731]"; //$NON-NLS-1$
 
-	String copyright = "Copyright(c) 2004-2023 Masaya YAMAGUCHI"; //$NON-NLS-1$
+	String copyright = "Copyright(c) 2004-2025 Masaya YAMAGUCHI"; //$NON-NLS-1$
 
 	String comments = "<html><body>" + //$NON-NLS-1$
 			"<em>Credit:</em>" + //$NON-NLS-1$ 

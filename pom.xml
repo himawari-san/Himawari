@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>jp.ac.ninjal</groupId>
 	<artifactId>himawari</artifactId>
-	<version>1_8a_20250331</version>
+	<version>1_8a_20250703</version>
 
 	<properties>
 		<main.class>jp.ac.ninjal.himawari.Himawari</main.class>
